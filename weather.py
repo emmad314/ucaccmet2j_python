@@ -36,6 +36,7 @@ for location in locations:
 
 precipitation_per_month = {}
 total_monthly_precipitation = []
+total_yearly_all_cities = 0 
 
 i = 0 
 for station in stations: 
@@ -51,7 +52,6 @@ for station in stations:
             total_monthly_precipitation = list(precipitation_per_month.values())
             city_data[city]["total_monthly_precipitation"] = total_monthly_precipitation
 
-
     total_yearly_precipitation = 0 
     for month in total_monthly_precipitation: 
         total_yearly_precipitation = total_yearly_precipitation + month
@@ -62,6 +62,14 @@ for station in stations:
         relative_precipitation = month / total_yearly_precipitation
         relative_monthly_precipitation.append(relative_precipitation)
     city_data[city]["relative_monthly_precipitation"] = relative_monthly_precipitation
+
+    total_yearly_all_cities = total_yearly_all_cities + total_yearly_precipitation
+
+j = 0 
+for station in stations: 
+    city = locations[j]
+    j = j + 1 
+    city_data[city]["relative_yearly_precipitation"] = city_data[city]["total_yearly_precipitation"] / total_yearly_all_cities
 
 print(city_data)
 
