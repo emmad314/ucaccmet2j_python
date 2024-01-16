@@ -37,27 +37,31 @@ for location in locations:
 precipitation_per_month = {}
 total_monthly_precipitation = []
 
-for measurement in precipitation: 
-    if measurement["station"] == "GHCND:US1WAKG0038": 
-        month = measurement["date"][:-3]
-        if month in precipitation_per_month: 
-            precipitation_per_month[month] = precipitation_per_month[month] + measurement["value"]
-        else: 
-            precipitation_per_month[month] = measurement["value"]
+i = 0 
+for station in stations: 
+    city = locations[i]
+    i = i + 1 
+    for measurement in precipitation: 
+        if measurement["station"] == station: 
+            month = measurement["date"][:-3]
+            if month in precipitation_per_month: 
+                precipitation_per_month[month] = precipitation_per_month[month] + measurement["value"]
+            else: 
+                precipitation_per_month[month] = measurement["value"]
+            total_monthly_precipitation = list(precipitation_per_month.values())
+            city_data[city]["total_monthly_precipitation"] = total_monthly_precipitation
 
-total_monthly_precipitation = list(precipitation_per_month.values())
-city_data["Seattle"]["total_monthly_precipitation"] = total_monthly_precipitation
 
-total_yearly_precipitation = 0 
-for month in total_monthly_precipitation: 
-    total_yearly_precipitation = total_yearly_precipitation + month
-city_data["Seattle"]["total_yearly_precipitation"] = total_yearly_precipitation
+    total_yearly_precipitation = 0 
+    for month in total_monthly_precipitation: 
+        total_yearly_precipitation = total_yearly_precipitation + month
+    city_data[city]["total_yearly_precipitation"] = total_yearly_precipitation
 
-relative_monthly_precipitation = []
-for month in total_monthly_precipitation: 
-    relative_precipitation = month / total_yearly_precipitation
-    relative_monthly_precipitation.append(relative_precipitation)
-city_data["Seattle"]["relative_monthly_precipitation"] = relative_monthly_precipitation
+    relative_monthly_precipitation = []
+    for month in total_monthly_precipitation: 
+        relative_precipitation = month / total_yearly_precipitation
+        relative_monthly_precipitation.append(relative_precipitation)
+    city_data[city]["relative_monthly_precipitation"] = relative_monthly_precipitation
 
 print(city_data)
 
