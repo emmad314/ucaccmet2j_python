@@ -47,6 +47,18 @@ for measurement in precipitation:
 
 total_monthly_precipitation = list(precipitation_per_month.values())
 city_data["Seattle"]["total_monthly_precipitation"] = total_monthly_precipitation
+
+total_yearly_precipitation = 0 
+for month in total_monthly_precipitation: 
+    total_yearly_precipitation = total_yearly_precipitation + month
+city_data["Seattle"]["total_yearly_precipitation"] = total_yearly_precipitation
+
+relative_monthly_precipitation = []
+for month in total_monthly_precipitation: 
+    relative_precipitation = month / total_yearly_precipitation
+    relative_monthly_precipitation.append(relative_precipitation)
+city_data["Seattle"]["relative_monthly_precipitation"] = relative_monthly_precipitation
+
 print(city_data)
 
 with open('results.json', "w") as new_file:
