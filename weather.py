@@ -21,8 +21,18 @@ import csv
 with open('precipitation.json') as file: 
     precipitation = json.load(file)
 
-with open('stations.csv') as data: 
-    csv_read = csv.reader(data, delimiter = ",")
+from pandas import *
+ 
+data = read_csv("stations.csv")
+locations = data['Location'].tolist()
+states = data['State'].tolist()
+stations = data['Station'].tolist()
+
+city_data = {}
+index = 0 
+for location in locations: 
+    city_data[location] = {"station": stations[index], "state": states[index]}
+    index = index + 1
 
 precipitation_per_month = {}
 total_monthly_precipitation = []
@@ -36,6 +46,8 @@ for measurement in precipitation:
             precipitation_per_month[month] = measurement["value"]
 
 total_monthly_precipitation = list(precipitation_per_month.values())
+city_data["Seattle"]["total_monthly_precipitation"] = total_monthly_precipitation
+print(city_data)
 
 with open('results.json', "w") as new_file:
-    json.dump(total_monthly_precipitation, new_file, indent = 4)
+    json.dump(city_data, new_file, indent = 4)

@@ -1,14 +1,32 @@
-[
-    1693,
-    730,
-    870,
-    752,
-    924,
-    601,
-    54,
-    104,
-    996,
-    908,
-    1192,
-    2356
-]
+{
+    "Cincinnati": {
+        "station": "GHCND:USW00093814",
+        "state": "OH"
+    },
+    "Seattle": {
+        "station": "GHCND:US1WAKG0038",
+        "state": "WA",
+        "total_monthly_precipitation": [
+            1693,
+            730,
+            870,
+            752,
+            924,
+            601,
+            54,
+            104,
+            996,
+            908,
+            1192,
+            2356
+        ]
+    },
+    "Maui": {
+        "station": "GHCND:USC00513317",
+        "state": "HI"
+    },
+    "San Diego": {
+        "station": "GHCND:US1CASD0032",
+        "state": "CA"
+    }
+}
