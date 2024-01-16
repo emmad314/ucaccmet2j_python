@@ -16,9 +16,13 @@
 #dates: 2010-1 through 2010-12
 
 import json 
+import csv
 
 with open('precipitation.json') as file: 
     precipitation = json.load(file)
+
+with open('stations.csv') as data: 
+    csv_read = csv.reader(data, delimiter = ",")
 
 precipitation_per_month = {}
 total_monthly_precipitation = []
@@ -31,11 +35,7 @@ for measurement in precipitation:
         else: 
             precipitation_per_month[month] = measurement["value"]
 
-print(precipitation_per_month)
-
 total_monthly_precipitation = list(precipitation_per_month.values())
-
-print(total_monthly_precipitation)
 
 with open('results.json', "w") as new_file:
     json.dump(total_monthly_precipitation, new_file, indent = 4)
